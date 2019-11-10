@@ -1,6 +1,7 @@
 # Simple Load Balancer
 
 I used Kasun Vithanage's page to write a simple load balancer in go
+
 https://kasvith.github.io/posts/lets-create-a-simple-lb-go/
 
-This appeals to me as I'm learning golang, and I'm familiar with load balancers. 
+I'm familiar with docker and load balancers. This is a good way for me to learn more go. 
