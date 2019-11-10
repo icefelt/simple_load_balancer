@@ -1,57 +1,57 @@
 package main
 
 import (
-  "context"
-  "flag"
-  "fmt"
-  "log"
-  "net"
-  "net/http"
-  "net/http/httputil"
-  "net/url"
-  "strings"
-  "sync"
-  "sync/atomic"
-  "time"
+	"context"
+	"flag"
+	"fmt"
+	"log"
+	"net"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
+	"strings"
+	"sync"
+	"sync/atomic"
+	"time"
 )
 
 const (
-  Attempts int = iota
-  Retry
+	Attempts int = iota
+	Retry
 )
 
-// Backend contains server data
+// Backend holds the data about a server
 type Backend struct {
-  URL               *url.url
-  Alive             bool
-  mux               sync.RWMutex
-  ReverseProxy      *httputil.ReverseProxy
+	URL          *url.URL
+	Alive        bool
+	mux          sync.RWMutex
+	ReverseProxy *httputil.ReverseProxy
 }
 
 // SetAlive for this backend
 func (b *Backend) SetAlive(alive bool) {
-  b.mux.Lock()
-  b.Alive = Alive
-  b.mux.Unlock()
+	b.mux.Lock()
+	b.Alive = alive
+	b.mux.Unlock()
 }
 
 // IsAlive returns true when backend is alive
 func (b *Backend) IsAlive() (alive bool) {
-  b.mux.RLock()
-  alive = b.alive
-  b.mux.RUnlock()
-  return
+	b.mux.RLock()
+	alive = b.Alive
+	b.mux.RUnlock()
+	return
 }
 
-// SerPool holds information about reachable backends
+// ServerPool holds information about reachable backends
 type ServerPool struct {
-  backends          []*Backend
-  current           uint64
+	backends []*Backend
+	current  uint64
 }
 
 // AddBackend to the server pool
-func (s *ServerPool) AddBackend(backend * Backend) {
-  s.backends = append(s.backends, backend)
+func (s *ServerPool) AddBackend(backend *Backend) {
+	s.backends = append(s.backends, backend)
 }
 
 // NextIndex atomically increase the counter and return an index
