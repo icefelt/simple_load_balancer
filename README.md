@@ -1,5 +1,6 @@
-# simple_load_balancer
+# Simple Load Balancer
 
-This repo a simple load balancer, written in go.
-I used this page as a guide:
+I used Kasun Vithanage's page to write a simple load balancer in go
 https://kasvith.github.io/posts/lets-create-a-simple-lb-go/
+
+This appeals to me as I'm learning golang, and I'm faimliar with load balancers. 
